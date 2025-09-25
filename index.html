@@ -45,11 +45,16 @@
     .nav-links { display:flex; gap: 18px; flex-wrap: wrap; }
     .nav-links a { padding: 8px 10px; border-radius: 10px; }
     .nav-links a:hover { background: color-mix(in oklab, var(--panel) 80%, transparent); text-decoration: none; }
+
     .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; background: var(--brand); color:white; border: none; border-radius: 999px; cursor: pointer; box-shadow: 0 6px 20px rgba(124,92,255,.35); font-weight:600; }
     .btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--border); box-shadow: none; }
+
     .grid { display:grid; gap: 20px; }
+    .split { display:grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+
     .hero { padding: 40px 0 10px; }
     .two-col { grid-template-columns: 1.35fr .65fr; } /* narrower right column */
+
     .card { background: var(--card); border:1px solid var(--border); border-radius: 16px; padding: 18px; }
     h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.1; margin: 0; }
     h2 { font-size: clamp(20px, 2.4vw, 28px); margin: 0 0 10px; }
@@ -62,23 +67,19 @@
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
     .pill { display:inline-flex; gap:8px; align-items:center; padding:6px 12px; background: color-mix(in oklab, var(--panel) 90%, transparent); border: 1px solid var(--border); border-radius: 999px; }
 
-    /* 🔹 NEW rules to shrink affiliations card */
+    /* hero card sizing */
     .hero-card {
-      max-width: 360px;    /* wider, same as your original */
-      padding: 14px 14px;  /* reduce vertical padding */
-      margin-left: 50px;   /* push slightly left (adjust as you like) */
+      max-width: 360px;     /* restored width */
+      padding: 14px 14px;   /* tighter padding to reduce height */
+      margin-left: 50px;    /* nudge left */
     }
-
     .hero-card .avatar {
       width: 50px;
-      height: 50px;        /* keep avatar small */
+      height: 50px;
       border-radius: 10px;
     }
-
-    .hero-card p {
-      font-size: 14px;
-      margin-bottom: 6px;  /* tighten spacing under text */
-    }
+    .hero-card p { font-size: 14px; margin-bottom: 6px; }
+    @media (max-width: 920px) { .two-col, .split { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -105,16 +106,17 @@
   </header>
 
   <main class="container">
+    <!-- HERO -->
     <section class="hero grid two-col" id="about">
       <div>
         <div class="kicker">Hello — I’m Aziz</div>
         <h1>Undergraduate researcher exploring <em>AI × Clinical Psychology</em>, working-memory modeling (fMRI), ANN MSA, and Behavioral Data Modeling.</h1>
         <p>
-          I’m a B.Sc. student in Psychology at McGill University (Bashivan Lab). 
-          My research focuses on building transformer-based models for cognitive tasks and DNA multiple sequence alignment, 
-          as well as developing open-source pipelines for behavioral data modeling. 
-          I’m especially interested in aligning artificial neural networks with human brain activity to gain insight into cognition. 
-          My long-term goal is to contribute to clinical psychology by using machine learning and neural network models 
+          I’m a B.Sc. student in Psychology at McGill University (Bashivan Lab).
+          My research focuses on building transformer-based models for cognitive tasks and DNA multiple sequence alignment,
+          as well as developing open-source pipelines for behavioral data modeling.
+          I’m especially interested in aligning artificial neural networks with human brain activity to gain insight into cognition.
+          My long-term goal is to contribute to clinical psychology by using machine learning and neural network models
           to study how pathologies develop in the brain and at the genetic level.
         </p>
 
@@ -131,26 +133,116 @@
         </div>
       </div>
 
-      <!-- 🔹 Affiliations card -->
+      <!-- RIGHT CARD -->
       <div class="card hero-card">
         <div style="display:flex; gap:12px; align-items:center;">
-          <div class="avatar" aria-label="Profile photo placeholder"></div>
-          <div>
-            <h3>Affiliations</h3>
-            <p class="muted" style="margin:4px 0 8px;">
-              McGill University 
-            </p>
-            <div class="grid" style="gap:6px;">
-              <a class="pill" href="http://www.bashivanlab.org">Bashivan Lab</a>
-            <div class="grid" style="gap:6px;">
-                <a class="pill" href="https://massetlab.org">Masset Lab</a>
-            </div>
-            <h3 style="margin-top:14px;">Profiles</h3>
-            <div class="grid" style="gap:6px;">
-              <a class="pill" href="https://github.com/hancilar" target="_blank" rel="noopener noreferrer">My Git</a>
-              <a class="pill" href="https://github.com/bashivanlab" target="_blank" rel="noopener noreferrer">Bashivan Git</a>
-              <a class="pill" href="#" target="_blank" rel="noopener noreferrer">Masset Git</a>
+          <div class="avatar" aria-label="Profile photo"></div>
+          <div style="flex:1;">
+            <h3 style="margin:0;">Affiliations</h3>
+            <p class="muted" style="margin:4px 0 8px;">McGill University</p>
           </div>
+        </div>
+
+        <div class="grid" style="gap:6px; margin-top:8px;">
+          <a class="pill" href="https://bashivanlab.org" target="_blank" rel="noopener noreferrer">Bashivan Lab</a>
+          <a class="pill" href="https://massetlab.org" target="_blank" rel="noopener noreferrer">Masset Lab</a>
+        </div>
+
+        <h3 style="margin:14px 0 6px;">Profiles</h3>
+        <div class="grid" style="gap:6px;">
+          <a class="pill" href="https://github.com/hancilar" target="_blank" rel="noopener noreferrer">My Git</a>
+          <a class="pill" href="https://github.com/bashivanlab" target="_blank" rel="noopener noreferrer">Bashivan Git</a>
+          <a class="pill" href="#" target="_blank" rel="noopener noreferrer">Masset Git</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESEARCH INTERESTS -->
+    <section id="interests">
+      <h2>Research Interests</h2>
+      <div class="split">
+        <div class="card">
+          <h3>AI for Cognitive Neuroscience</h3>
+          <p>Modeling working memory and attention with multimodal transformers; linking model layers to PFC activity (encode vs. delay phases).</p>
+          <div>
+            <span class="tag">PFC</span>
+            <span class="tag">Brain–model alignment</span>
+            <span class="tag">iWISDM</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Neural Multiple Sequence Alignment</h3>
+          <p>Axial/self-attention architectures with MoE; benchmarking vs. MAFFT/Clustal; SP/TC metrics and gap prediction.</p>
+          <div>
+            <span class="tag">Axial attention</span>
+            <span class="tag">RoPE</span>
+            <span class="tag">SP/TC</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <h2>Publications</h2>
+      <div class="card">
+        <h3 style="margin:0 0 6px;">Title of Your Paper Goes Here</h3>
+        <p class="muted" style="margin:0 0 8px;">Aziz Ktari, Co-authors… <span class="mono">(2025)</span>. <em>Workshop/Journal</em>. <a href="#">PDF</a> · <a href="#">Code</a></p>
+        <pre class="mono" style="white-space:pre-wrap; background: var(--panel); padding:10px; border-radius:10px; border:1px solid var(--border); margin:0;">@inproceedings{Ktari2025Title,
+  author = {Ktari, Aziz and ...},
+  title  = {Title of Your Paper},
+  booktitle = {Proceedings of ...},
+  year = {2025},
+  url = {https://example.com/paper.pdf}
+}</pre>
+      </div>
+    </section>
+
+    <!-- WORK IN PROGRESS -->
+    <section id="projects">
+      <h2>Work in Progress</h2>
+      <div class="grid" style="grid-template-columns: repeat(auto-fit,minmax(260px,1fr));">
+        <article class="card">
+          <h3>Neural MSA up to 800×300</h3>
+          <p class="muted">Scaling axial/self-attention with MoE; benchmarking SP/TC vs. MAFFT; INDELible + Borderlands data.</p>
+          <div class="tag">PyTorch</div>
+        </article>
+        <article class="card">
+          <h3>Working-Memory Transformer (GAPT/MoE-GAPT)</h3>
+          <p class="muted">Aligning model activations with PFC fMRI; encode/delay phase analyses and correlation heatmaps.</p>
+          <div class="tag">fMRI</div>
+        </article>
+        <article class="card">
+          <h3>Behavioral Modeling Toolkit</h3>
+          <p class="muted">Pluggable NLL + simulation for RL/choice/bandit tasks; reproducible pipelines.</p>
+          <div class="tag">Open-source</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CV -->
+    <section id="cv">
+      <h2>Curriculum Vitae</h2>
+      <div class="card">
+        <p>Download the latest CV as a PDF.</p>
+        <a class="btn" href="cv/Aziz_Ktari_CV.pdf" download>Download CV (PDF)</a>
+        <p class="muted" style="margin-top:10px;">Tip: keep file name stable (e.g., <span class="mono">Aziz_Ktari_CV.pdf</span>) for a persistent link.</p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="split">
+        <div class="card">
+          <p><strong>Email:</strong> <a href="mailto:aziz.ktari@mail.mcgill.ca">aziz.ktari@mail.mcgill.ca</a><br/>
+             <strong>Location:</strong> Montréal, Canada<br/>
+             <strong>Affiliation:</strong> McGill University — Bashivan Lab
+          </p>
+        </div>
+        <div class="card">
+          <h3>Office hours & collaboration</h3>
+          <p class="muted">Open to collaborations and mentorship chats in computational psychiatry, working memory, and neural MSA.</p>
         </div>
       </div>
     </section>
