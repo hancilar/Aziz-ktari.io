@@ -38,52 +38,52 @@
     a { color: var(--brand); text-decoration: none; }
     a:hover { text-decoration: underline; }
     .container { max-width: 1100px; padding: 24px; margin: 0 auto; }
+
+    /* Header */
     header { position: sticky; top: 0; backdrop-filter: saturate(180%) blur(8px); background: color-mix(in oklab, var(--bg) 70%, transparent); border-bottom: 1px solid var(--border); z-index: 20; }
     nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .brand { display:flex; align-items:center; gap:12px; }
-    .brad div {display: flex; flex-direction: column; line-height: 1.2;}
+    .brand div { display:flex; flex-direction:column; line-height:1.2; } /* fixed typo (.brand, not .brad) */
     .logo { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow: 0 0 0 6px color-mix(in oklab, var(--ring) 60%, transparent); }
-    .nav-links { display:flex; gap: 18px; flex-wrap: nowrap; }
+    .nav-links { display:flex; gap: 18px; flex-wrap: nowrap; }  /* keep on one line */
     .nav-links a { padding: 8px 10px; border-radius: 10px; }
     .nav-links a:hover { background: color-mix(in oklab, var(--panel) 80%, transparent); text-decoration: none; }
 
+    /* Buttons & chips */
     .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; background: var(--brand); color:white; border: none; border-radius: 999px; cursor: pointer; box-shadow: 0 6px 20px rgba(124,92,255,.35); font-weight:600; }
     .btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--border); box-shadow: none; }
+    .pill {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:4px 10px; border-radius:999px;
+      background: color-mix(in oklab, var(--panel) 90%, transparent);
+      border: 1px solid var(--border); line-height:1; font-size:14px;
+    }
 
+    /* Layout */
     .grid { display:grid; gap: 20px; }
     .split { display:grid; gap: 16px; grid-template-columns: 1fr 1fr; }
-
     .hero { padding: 40px 0 10px; }
     .two-col { grid-template-columns: 1.35fr .65fr; } /* narrower right column */
-
     .card { background: var(--card); border:1px solid var(--border); border-radius: 16px; padding: 18px; }
     h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.1; margin: 0; }
     h2 { font-size: clamp(20px, 2.4vw, 28px); margin: 0 0 10px; }
     h3 { font-size: 18px; margin: 0 0 6px; }
     p { color: var(--muted); line-height: 1.65; }
-    .tags-row {
-      display: flex;
-      flex-wrap: nowrap;      /* 🚀 force single line */
-      gap: 8px;
-      overflow-x: auto;       /* allow horizontal scroll if too many */
-      padding-bottom: 6px;
-    }
-    .tags-row::-webkit-scrollbar { display: none; } /* hide scrollbar (optional) */
-
     section { padding: 40px 0; }
     footer { border-top:1px solid var(--border); padding: 24px 0 56px; color: var(--muted); }
+
     .avatar { width: 110px; height:110px; border-radius: 16px; background: url('avatar.jpg') center/cover, linear-gradient(135deg,var(--brand),var(--brand-2)); border: 1px solid var(--border); }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
-    .pill { display:inline-flex; gap:8px; align-items:center; padding:6px 12px; background: color-mix(in oklab, var(--panel) 90%, transparent); border: 1px solid var(--border); border-radius: 999px; }
 
-    /* hero card sizing */
-    .hero-card {
-      max-width: 320px;
-      padding: 10px 12px;    /* tighter padding */
-      margin-left: 40px;     /* adjust spacing from main text */
-    }
-    .hero-card h3 { margin: 6px 0; }
-    .hero-card p { margin: 2px 0 6px; font-size: 14px; }
+    /* Tags in one line (scroll if overflow) */
+    .tags-row { display:flex; flex-wrap:nowrap; gap:8px; overflow-x:auto; padding-bottom:6px; }
+    .tags-row::-webkit-scrollbar { display:none; }
+    .tag { display:inline-flex; align-items:center; padding:4px 10px; border:1px solid var(--border); border-radius:999px; font-size: 12px; color: var(--muted); }
+
+    /* Hero card compact */
+    .hero-card { max-width:320px; padding:8px 12px; margin-left:40px; }
+    .hero-card h3{ margin:4px 0 6px; }
+    .hero-card p{ margin:2px 0 6px; font-size:14px; }
 
     @media (max-width: 920px) { .two-col, .split { grid-template-columns: 1fr; } }
   </style>
@@ -128,8 +128,8 @@
 
         <div style="display:flex; gap:10px; flex-wrap: wrap; margin-top: 14px;">
           <a class="btn" href="#contact">Get in touch</a>
-          <!-- <a class="btn secondary" href="#cv">View CV</a> -->
         </div>
+
         <div class="tags-row" style="margin-top:16px;">
           <span class="tag">Transformer modeling</span>
           <span class="tag">Working memory</span>
@@ -137,7 +137,6 @@
           <span class="tag">Multiple sequence alignment</span>
           <span class="tag">Clinical psychology</span>
         </div>
-
       </div>
 
       <!-- RIGHT CARD -->
@@ -170,62 +169,53 @@
       <div class="split">
         <div class="card">
           <h3>ANNs for Cognitive Neuroscience</h3>
-          <p>Modeling brain activity for different task to understand how the brain solves those task. Or Modeling brain activity to understand and compare
-            brain activity of control and experiemtal group brains.
-          </p>
+          <p>Modeling brain activity for different tasks to understand how the brain solves them; comparing control and experimental groups.</p>
           <div>
             <span class="tag">Clinical Psychology</span>
             <span class="tag">Brain–model alignment</span>
-            
           </div>
         </div>
         <div class="card">
-          <h3>ANNs tools to improve measurement</h3>
-          <p>Improving on an algorithm tool that uses heuristics or other human made rules to improve measure leveraging neural netowrks.</p>
+          <h3>ANN-based Measurement</h3>
+          <p>Improving heuristic/hand-crafted pipelines by leveraging neural networks to enhance measurement quality.</p>
           <div>
             <span class="tag">Tools</span>
             <span class="tag">Measurement</span>
-            
           </div>
-
         </div>
-         <div class="card">
-          <h3>Building packages</h3>
-          <p>Make computational research more accessible though  packages.</p>
+        <div class="card">
+          <h3>Building Packages</h3>
+          <p>Making computational research more accessible through well-documented, reusable packages.</p>
           <div>
             <span class="tag">Packages</span>
-            <span class="tag">Accessability</span>
-            
+            <span class="tag">Accessibility</span>
           </div>
-
         </div>
-        
       </div>
     </section>
 
     <!-- PUBLICATIONS -->
-  <section id="publications">
-    <h2>Publications</h2>
-    <div class="card">
-      <h3 style="margin:0 0 6px;">Zero-shot neural predictivity in human prefrontal cortex with a massively multi-task multimodal transformer</h3>
-      <p class="muted" style="margin:0 0 8px;">
-        Lucas Gomez, Aziz Ktari, Hao Yuan, Bai Pouya Bashivan
-        <span class="mono">(2025)</span>. 
-        <em>Data on the brain and mind Neurips workshop</em>. 
-        <span class="mono status submitted">[Accepted]</span> · 
-        <a href="#" target="_blank" rel="noopener noreferrer">Link</a>
-      </p>
-    </div>
-  </section>
-
+    <section id="publications">
+      <h2>Publications</h2>
+      <div class="card">
+        <h3 style="margin:0 0 6px;">Zero-shot neural predictivity in human prefrontal cortex with a massively multi-task multimodal transformer</h3>
+        <p class="muted" style="margin:0 0 8px;">
+          Lucas Gomez, Aziz Ktari, Hao Yuan, Bai Pouya Bashivan
+          <span class="mono">(2025)</span>.
+          <em>Data on the Brain and Mind (NeurIPS Workshop)</em>.
+          <span class="mono status submitted">[Accepted]</span> ·
+          <a href="#" target="_blank" rel="noopener noreferrer">Link</a>
+        </p>
+      </div>
+    </section>
 
     <!-- WORK IN PROGRESS -->
     <section id="projects">
       <h2>Work in Progress</h2>
       <div class="grid" style="grid-template-columns: repeat(auto-fit,minmax(260px,1fr));">
         <article class="card">
-          <h3>Neural MSA </h3>
-          <p class="muted">Scaling a Neural network that solves DNA MSA for real use</p>
+          <h3>Neural MSA</h3>
+          <p class="muted">Scaling a neural network that solves DNA MSA for real-world use.</p>
           <div class="tag">Scaling</div>
         </article>
         <article class="card">
@@ -241,30 +231,22 @@
       </div>
     </section>
 
-    <!-- CV -->
-    <!-- <section id="cv">
-      <h2>Curriculum Vitae</h2>
-      <div class="card">
-        <p>Download the latest CV as a PDF.</p>
-        <a class="btn" href="cv/Aziz_Ktari_CV.pdf" download>Download CV (PDF)</a>
-        <p class="muted" style="margin-top:10px;">Tip: keep file name stable (e.g., <span class="mono">Aziz_Ktari_CV.pdf</span>) for a persistent link.</p>
-      </div>
-    </section> -->
-
     <!-- CONTACT -->
     <section id="contact">
       <h2>Contact</h2>
       <div class="split">
         <div class="card">
           <p><strong>Email:</strong> <a href="mailto:aziz.ktari@mail.mcgill.ca">aziz.ktari@mail.mcgill.ca</a><br/>
-             <strong>Location:</strong> Montréal, Canada<br/>
-
+             <strong>Location:</strong> Montréal, Canada
           </p>
         </div>
         <div class="card">
           <h3>Collaboration</h3>
-          <p class="muted"> I’m open to collaborations and mentorship chats in computational psychiatry, working memory, and neural MSA. 
-  Always happy to connect with researchers exploring brain or genetic perspectives through machine learning. </p>
+          <p class="muted">
+            I’m open to collaborations and mentorship chats in computational psychiatry, working memory, and neural MSA.
+            Always happy to connect with researchers exploring brain or genetic perspectives through machine learning.
+          </p>
+        </div>
       </div>
     </section>
   </main>
@@ -273,7 +255,7 @@
     <div class="container">
       <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
         <span>© <span id="year"></span> Aziz Ktari</span>
- 
+        <span class="muted">Built with plain HTML/CSS. No trackers.</span>
       </div>
     </div>
   </footer>
