@@ -41,8 +41,15 @@
 
     /* Header */
     header { position: sticky; top: 0; backdrop-filter: saturate(180%) blur(8px); background: color-mix(in oklab, var(--bg) 70%, transparent); border-bottom: 1px solid var(--border); z-index: 20; }
-    nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .brand { display:flex; align-items:center; gap:12px; }
+    nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: nowrap; }
+    .brand { display:flex; align-items:center; gap:12px; min-width: 0; }
+    .brand .identity{
+      display:flex;
+      align-items:baseline;          /* nicer vertical alignment */
+      gap:8px;
+      white-space:nowrap;            /* keep name + subtitle on one line */
+    }
+    
     .brand div { display:flex; flex-direction:column; line-height:1.2; } /* fixed typo (.brand, not .brad) */
     .logo { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow: 0 0 0 6px color-mix(in oklab, var(--ring) 60%, transparent); }
     .nav-links { display:flex; gap: 18px; flex-wrap: nowrap; }  /* keep on one line */
