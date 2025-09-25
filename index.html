@@ -11,15 +11,15 @@
   <meta name="color-scheme" content="light dark" />
   <style>
     :root {
-        --bg: #1a1a1a;
-        --panel: #222222;
-        --text: #e6e6e6;
-        --muted: #b0b0b0;
-        --brand: #7c5cff;
-        --brand-2: #4cc9f0;
-        --ring: rgba(124,92,255,.5);
-        --card: #2a2a2a;
-        --border: #333333;
+      --bg: #1a1a1a;
+      --panel: #222222;
+      --text: #e6e6e6;
+      --muted: #b0b0b0;
+      --brand: #7c5cff;
+      --brand-2: #4cc9f0;
+      --ring: rgba(124,92,255,.5);
+      --card: #2a2a2a;
+      --border: #333333;
     }
     @media (prefers-color-scheme: light) {
       :root {
@@ -49,7 +49,7 @@
     .btn.secondary { background: transparent; color: var(--text); border: 1px solid var(--border); box-shadow: none; }
     .grid { display:grid; gap: 20px; }
     .hero { padding: 40px 0 10px; }
-    .two-col { grid-template-columns: 1.2fr .8fr; }
+    .two-col { grid-template-columns: 1.35fr .65fr; } /* narrower right column */
     .card { background: var(--card); border:1px solid var(--border); border-radius: 16px; padding: 18px; }
     h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.1; margin: 0; }
     h2 { font-size: clamp(20px, 2.4vw, 28px); margin: 0 0 10px; }
@@ -57,70 +57,26 @@
     p { color: var(--muted); line-height: 1.65; }
     .tag { display:inline-flex; align-items:center; padding:4px 10px; border:1px solid var(--border); border-radius:999px; font-size: 12px; color: var(--muted); margin: 4px 6px 0 0; }
     section { padding: 40px 0; }
-    .pub { display:grid; gap:8px; grid-template-columns: 1fr auto; align-items: start; padding: 14px; border-radius:14px; border: 1px solid var(--border); background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 85%, transparent), transparent); }
-    .pub h3 { margin: 0; }
-    .pub .right { display:flex; gap:8px; }
-    .kicker { color: var(--brand-2); font-weight:700; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; }
-    .list { display:grid; gap: 12px; }
-    .muted { color: var(--muted); }
-    .split { display:grid; gap: 16px; grid-template-columns: 1fr 1fr; }
     footer { border-top:1px solid var(--border); padding: 24px 0 56px; color: var(--muted); }
     .avatar { width: 110px; height:110px; border-radius: 16px; background: url('avatar.jpg') center/cover, linear-gradient(135deg,var(--brand),var(--brand-2)); border: 1px solid var(--border); }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
-    .kbd { border:1px solid var(--border); background: var(--panel); border-radius: 8px; padding: 1px 6px; font-size: 12px; }
     .pill { display:inline-flex; gap:8px; align-items:center; padding:6px 12px; background: color-mix(in oklab, var(--panel) 90%, transparent); border: 1px solid var(--border); border-radius: 999px; }
-    .hidden { display:none; }
 
-    @media (max-width: 920px) {
-      .two-col, .split { grid-template-columns: 1fr; }
-      .hero { padding-top: 20px; }
-      .nav-links { display:none; }
-      .menu-btn { display:inline-flex; }
+    /* 🔹 NEW rules to shrink affiliations card */
+    .hero-card {
+      max-width: 280px;   /* control box width */
+      padding: 14px;      /* tighter padding */
+      margin-left: auto;  /* keep it on the right */
     }
-    @media (min-width: 921px) { .menu-btn { display:none; } }
+    .hero-card .avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 12px;
+    }
+    .hero-card p {
+      font-size: 14px; /* smaller text */
+    }
   </style>
-  <script>
-    const state = {
-      showMenu: false,
-      showBib1: false,
-      filter: 'all'
-    };
-    function toggleMenu(){
-      state.showMenu = !state.showMenu;
-      document.getElementById('mobileMenu').classList.toggle('hidden', !state.showMenu);
-    }
-    function copyText(id){
-      const el = document.getElementById(id);
-      navigator.clipboard.writeText(el.textContent.trim());
-      const btn = document.querySelector(`[data-copy='${id}']`);
-      if(btn){
-        const txt = btn.textContent; btn.textContent = 'Copied!';
-        setTimeout(()=> btn.textContent = txt, 1200);
-      }
-    }
-    function setFilter(tag){
-      state.filter = tag;
-      document.querySelectorAll('[data-tag]').forEach(card => {
-        const t = card.getAttribute('data-tag');
-        card.style.display = (tag === 'all' || t.includes(tag)) ? '' : 'none';
-      });
-      document.querySelectorAll('[data-filter]').forEach(f => f.classList.toggle('secondary', f.dataset.filter !== tag));
-    }
-    document.addEventListener('DOMContentLoaded', () => setFilter('all'));
-  </script>
-  <!-- Structured data for a Person -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Aziz Ktari",
-    "affiliation": {"@type":"CollegeOrUniversity","name":"McGill University"},
-    "jobTitle": "Undergraduate Researcher",
-    "url": "https://example.com/",
-    "email": "mailto:aziz.ktari@mail.mcgill.ca",
-    "sameAs": [ "https://hancilar" ]
-  }
-  </script>
 </head>
 <body>
   <header>
@@ -141,18 +97,7 @@
           <a href="#cv">CV</a>
           <a href="#contact">Contact</a>
         </div>
-        <button class="btn secondary menu-btn" onclick="toggleMenu()" aria-expanded="false">Menu</button>
       </nav>
-      <div id="mobileMenu" class="hidden" style="padding:12px 0;">
-        <div class="grid card">
-          <a href="#about" onclick="toggleMenu()">About</a>
-          <a href="#interests" onclick="toggleMenu()">Research Interests</a>
-          <a href="#publications" onclick="toggleMenu()">Publications</a>
-          <a href="#projects" onclick="toggleMenu()">Work in Progress</a>
-          <a href="#cv" onclick="toggleMenu()">CV</a>
-          <a href="#contact" onclick="toggleMenu()">Contact</a>
-        </div>
-      </div>
     </div>
   </header>
 
@@ -161,7 +106,7 @@
       <div>
         <div class="kicker">Hello — I’m Aziz</div>
         <h1>Undergraduate researcher exploring <em>AI × Clinical Psychology</em>, working-memory modeling (fMRI), and neural MSA.</h1>
-        <p>I’m a B.Sc. student in Psychology at McGill University (Bashivan Lab). I build transformer-based models for cognitive tasks and DNA multiple sequence alignment, and I’m excited about aligning model representations with human brain activity. Long‑term, I aim to bridge computational psychiatry with reliable, deployable ML tools.</p>
+        <p>I’m a B.Sc. student in Psychology at McGill University (Bashivan Lab). I build transformer-based models for cognitive tasks and DNA multiple sequence alignment, and I’m excited about aligning model representations with human brain activity. Long-term, I aim to bridge computational psychiatry with reliable, deployable ML tools.</p>
         <div style="display:flex; gap:10px; flex-wrap: wrap; margin-top: 14px;">
           <a class="btn" href="#contact">Get in touch</a>
           <a class="btn secondary" href="#cv">View CV</a>
@@ -174,116 +119,20 @@
           <span class="tag">MoE</span>
         </div>
       </div>
-      <div class="card" style="display:flex; gap:16px; align-items:center; justify-content:center;">
-        <div class="avatar" aria-label="Profile photo placeholder"></div>
-        <div>
-          <h3>Affiliations</h3>
-          <p class="muted" style="margin:6px 0 12px;">McGill University — Bashivan Lab — Masset Lab</p>
-          <div class="grid" style="gap:8px;">
-            
-            <a class="pill" href="#">GitHub</a>
-            
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section id="interests">
-      <h2>Research Interests</h2>
-      <div class="split">
-        <div class="card">
-          <h3>AI for Cognitive Neuroscience</h3>
-          <p>Modeling working memory and attention with multimodal transformers; linking model layers to PFC activity (iWISDM tasks; encode vs. delay phase alignment).</p>
+      <!-- 🔹 Affiliations card -->
+      <div class="card hero-card">
+        <div style="display:flex; gap:12px; align-items:center;">
+          <div class="avatar" aria-label="Profile photo placeholder"></div>
           <div>
-            <span class="tag">PFC</span>
-            <span class="tag">Encoding–delay dynamics</span>
-            <span class="tag">Brain–model alignment</span>
+            <h3>Affiliations</h3>
+            <p class="muted" style="margin:4px 0 8px;">
+              McGill University — Bashivan Lab — Masset Lab
+            </p>
+            <div class="grid" style="gap:6px;">
+              <a class="pill" href="#">GitHub</a>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <h3>Neural Multiple Sequence Alignment</h3>
-          <p>Axial/self‑attention architectures trained on synthetic + real MSAs; benchmarking vs. MAFFT/Clustal; gap prediction & SP/TC metrics.</p>
-          <div>
-            <span class="tag">Axial attention</span>
-            <span class="tag">RoPE</span>
-            <span class="tag">SP/TC</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="publications">
-      <h2>Publications</h2>
-      <p class="muted">I’ll keep this list updated as new work appears. For now, here’s the first paper.</p>
-      <div class="list">
-        <!-- Example single publication; duplicate this block for new papers -->
-        <article class="pub" data-tag="cogneuro,wm">
-          <div>
-            <h3>Title of Your Paper Goes Here</h3>
-            <p class="muted">Aziz Ktari, Co‑authors… <span class="mono">(2025)</span>. <em>Workshop/Journal</em>. <a href="#">PDF</a> · <a href="#">Code</a> · <a href="#" onclick="event.preventDefault(); document.getElementById('bib1').classList.toggle('hidden');">BibTeX</a></p>
-            <pre id="bib1" class="hidden mono" style="white-space: pre-wrap; background: var(--panel); padding:10px; border-radius:10px; border:1px solid var(--border);">@inproceedings{Ktari2025Title,
-  author = {Ktari, Aziz and ...},
-  title  = {Title of Your Paper},
-  booktitle = {Proceedings of ...},
-  year = {2025},
-  url = {https://example.com/paper.pdf}
-}</pre>
-          </div>
-          <div class="right">
-            <button class="btn secondary" data-copy="bib1" onclick="copyText('bib1')" aria-label="Copy BibTeX">Copy BibTeX</button>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="projects">
-      <h2>Work in Progress</h2>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin: 8px 0 16px;">
-        <button class="btn secondary" data-filter="all" onclick="setFilter('all')">All</button>
-        <button class="btn secondary" data-filter="cogneuro" onclick="setFilter('cogneuro')">Cognitive Neuroscience</button>
-        <button class="btn secondary" data-filter="msa" onclick="setFilter('msa')">MSA</button>
-        <button class="btn secondary" data-filter="tools" onclick="setFilter('tools')">Tools</button>
-      </div>
-      <div class="grid" style="grid-template-columns: repeat(auto-fit,minmax(260px,1fr));">
-        <article class="card" data-tag="msa,tools">
-          <h3>Neural MSA up to 800×300</h3>
-          <p class="muted">Scaling axial/self‑attention with MoE for large MSAs; benchmarking SP/TC vs. MAFFT; data generation via INDELible + Borderlands.</p>
-          <div class="tag">PyTorch</div>
-        </article>
-        <article class="card" data-tag="cogneuro">
-          <h3>Working‑Memory Transformer (GAPT/MoE‑GAPT)</h3>
-          <p class="muted">Aligning model activations with PFC fMRI on iWISDM. Encode/delay phase analysis and brain‑layer correlation heatmaps.</p>
-          <div class="tag">fMRI</div>
-        </article>
-        <article class="card" data-tag="tools">
-          <h3>Open Behavioral Modeling Toolkit</h3>
-          <p class="muted">Pluggable negative log‑likelihood and simulation tools for RL/choice/bandit tasks; reproducible pipelines.</p>
-          <div class="tag">Open‑source</div>
-        </article>
-      </div>
-    </section>
-
-    <section id="cv">
-      <h2>Curriculum Vitae</h2>
-      <div class="card">
-        <p>Download the latest CV as a PDF. Keep an eye out for updates as projects mature.</p>
-        <a class="btn" href="cv/Aziz_Ktari_CV.pdf" download>Download CV (PDF)</a>
-        <p class="muted" style="margin-top:10px;">Tip: keep file name stable (e.g., <span class="mono">Aziz_Ktari_CV.pdf</span>) for a persistent link.</p>
-      </div>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <div class="split">
-        <div class="card">
-          <p><strong>Email:</strong> <a href="mailto:aziz.ktari@mail.mcgill.ca">aziz.ktari@mail.mcgill.ca</a><br/>
-             <strong>Location:</strong> Montréal, Canada<br/>
-             <strong>Affiliation:</strong> McGill University — Bashivan Lab
-          </p>
-        </div>
-        <div class="card">
-          <h3>Office hours & collaboration</h3>
-          <p class="muted">I’m open to research collaborations and mentorship chats. If you’re working on computational psychiatry, working memory, or neural MSA, I’d love to connect.</p>
         </div>
       </div>
     </section>
