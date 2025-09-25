@@ -43,7 +43,7 @@
     .brand { display:flex; align-items:center; gap:12px; }
     .brad div {display: flex; flex-direction: column; line-height: 1.2;}
     .logo { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow: 0 0 0 6px color-mix(in oklab, var(--ring) 60%, transparent); }
-    .nav-links { display:flex; gap: 18px; flex-wrap: wrap; }
+    .nav-links { display:flex; gap: 18px; flex-wrap: nowrap; }
     .nav-links a { padding: 8px 10px; border-radius: 10px; }
     .nav-links a:hover { background: color-mix(in oklab, var(--panel) 80%, transparent); text-decoration: none; }
 
@@ -61,7 +61,15 @@
     h2 { font-size: clamp(20px, 2.4vw, 28px); margin: 0 0 10px; }
     h3 { font-size: 18px; margin: 0 0 6px; }
     p { color: var(--muted); line-height: 1.65; }
-    .tag { display:inline-flex; align-items:center; padding:4px 10px; border:1px solid var(--border); border-radius:999px; font-size: 12px; color: var(--muted); margin: 4px 6px 0 0; }
+    .tags-row {
+      display: flex;
+      flex-wrap: nowrap;      /* 🚀 force single line */
+      gap: 8px;
+      overflow-x: auto;       /* allow horizontal scroll if too many */
+      padding-bottom: 6px;
+    }
+    .tags-row::-webkit-scrollbar { display: none; } /* hide scrollbar (optional) */
+
     section { padding: 40px 0; }
     footer { border-top:1px solid var(--border); padding: 24px 0 56px; color: var(--muted); }
     .avatar { width: 110px; height:110px; border-radius: 16px; background: url('avatar.jpg') center/cover, linear-gradient(135deg,var(--brand),var(--brand-2)); border: 1px solid var(--border); }
@@ -70,16 +78,13 @@
 
     /* hero card sizing */
     .hero-card {
-      max-width: 360px;     /* restored width */
-      padding: 14px 14px;   /* tighter padding to reduce height */
-      margin-left: 50px;    /* nudge left */
+      max-width: 320px;
+      padding: 10px 12px;    /* tighter padding */
+      margin-left: 40px;     /* adjust spacing from main text */
     }
-    .hero-card .avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
-    }
-    .hero-card p { font-size: 14px; margin-bottom: 6px; }
+    .hero-card h3 { margin: 6px 0; }
+    .hero-card p { margin: 2px 0 6px; font-size: 14px; }
+
     @media (max-width: 920px) { .two-col, .split { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -125,14 +130,14 @@
           <a class="btn" href="#contact">Get in touch</a>
           <!-- <a class="btn secondary" href="#cv">View CV</a> -->
         </div>
-        <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;">
+        <div class="tags-row" style="margin-top:16px;">
           <span class="tag">Transformer modeling</span>
           <span class="tag">Working memory</span>
           <span class="tag">fMRI alignment</span>
           <span class="tag">Multiple sequence alignment</span>
           <span class="tag">Clinical psychology</span>
-
         </div>
+
       </div>
 
       <!-- RIGHT CARD -->
